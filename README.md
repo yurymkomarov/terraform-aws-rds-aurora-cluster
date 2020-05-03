@@ -1,0 +1,78 @@
+# AWS RDS Aurora cluster
+
+This module provides AWS RDS Aurora cluster resources:
+- AWS RDS Aurora cluster
+- AWS RDS subnet group
+- AWS RDS Aurora cluster instances
+- security group
+- AWS Secrets Manager key for cluster credentials
+
+# Input variables
+- `name` - Name that will be used in resources names and tags
+- `engine` - The name of the database engine to be used for this DB cluster. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`
+- `storage_encrypted` - Specifies whether the DB cluster is encrypted
+- `instance_class` - The Amazon RDS database instance class
+- `master_username` - Username for the master DB user
+- `master_password` - Password for the master DB user
+- `database_name` - Name for an automatically created database on cluster creation
+- `snapshot_identifier` - Specifies whether or not to create this cluster from a snapshot
+- `vpc_id` - The identifier of the VPC in which to create the security group
+- `vpc_subnets` - A list of subnet IDs to launch resources in
+- `vpc_cidr_block` - The VPC CIDR IP range for security group ingress rule for access to AWS EFS storage
+
+# Output variables
+- `rds_cluster`
+    - `arn` - Amazon Resource Name (ARN) of cluster
+    - `id` - The RDS Cluster Identifier
+    - `cluster_identifier` - The RDS Cluster Identifier
+    - `cluster_resource_id` - The RDS Cluster Resource ID
+    - `cluster_members` – List of RDS Instances that are a part of this cluster
+    - `allocated_storage` - The amount of allocated storage
+    - `availability_zones` - The availability zone of the instance
+    - `backup_retention_period` - The backup retention period
+    - `preferred_backup_window` - The daily time range during which the backups happen
+    - `preferred_maintenance_window` - The maintenance window
+    - `endpoint` - The DNS address of the RDS instance
+    - `reader_endpoint` - A read-only endpoint for the Aurora cluster, automatically load-balanced across replicas
+    - `engine` - The database engine
+    - `engine_version` - The database engine version
+    - `maintenance_window` - The instance maintenance window
+    - `database_name` - The database name
+    - `port` - The database port
+    - `status` - The RDS instance status
+    - `master_username` - The master username for the database
+    - `storage_encrypted` - Specifies whether the DB cluster is encrypted
+    - `replication_source_identifier` - ARN of the source DB cluster or DB instance if this DB cluster is created as a Read Replica.
+    - `hosted_zone_id` - The Route53 Hosted Zone ID of the endpoint
+- `rds_cluster_instance`
+    - `arn` - Amazon Resource Name (ARN) of cluster instance
+    - `cluster_identifier` - The RDS Cluster Identifier
+    - `identifier` - The Instance identifier
+    - `id` - The Instance identifier
+    - `writer` – Boolean indicating if this instance is writable. False indicates this instance is a read replica.
+    - `allocated_storage` - The amount of allocated storage
+    - `availability_zone` - The availability zone of the instance
+    - `endpoint` - The DNS address for this instance. May not be writable
+    - `engine` - The database engine
+    - `engine_version` - The database engine version
+    - `database_name` - The database name
+    - `port` - The database port
+    - `status` - The RDS instance status
+    - `storage_encrypted` - Specifies whether the DB cluster is encrypted.
+    - `kms_key_id` - The ARN for the KMS encryption key if one is set to the cluster.
+    - `dbi_resource_id` - The region-unique, immutable identifier for the DB instance.
+    - `performance_insights_enabled` - Specifies whether Performance Insights is enabled or not.
+    - `performance_insights_kms_key_id` - The ARN for the KMS encryption key used by Performance Insights.
+- `secretsmanager_secret`
+    - `id` - Amazon Resource Name (ARN) of the secret
+    - `arn` - Amazon Resource Name (ARN) of the secret
+    - `rotation_enabled` - Specifies whether automatic rotation is enabled for this secret
+- `security_group`
+    - `id` - The ID of the security group
+    - `arn` - The ARN of the security group
+    - `vpc_id` - The VPC ID
+    - `owner_id` - The owner ID
+    - `name` - The name of the security group
+    - `description` - The description of the security group
+    - `ingress` - The ingress rules
+    - `egress` - The egress rules
